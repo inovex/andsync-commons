@@ -78,7 +78,20 @@ public class BsonConverter {
 	private static InfinitePool<BasicBSONDecoder> decoderPool;
 	private static InfinitePool<BasicDBList> dblistPool;
 	
-	public static List<DBObject> fromBSON(byte[] bson) {
+	public static DBObject fromBson(byte[] bson) {
+		JSONCallback callback = new JSONCallback();
+		
+		try {
+			decoderPool.get().decode(bson, callback);
+		} catch(Exception ex) {
+			Log.e("Data was not a valid BSON object.");
+			return null;
+		}
+		
+		return (DBObject)callback.get();
+	}
+	
+	public static List<DBObject> fromBsonList(byte[] bson) {
 		
 		JSONCallback callback = new JSONCallback();
 		
@@ -100,7 +113,7 @@ public class BsonConverter {
 	}
 	
 	public static DBObject fromBSONFirst(byte[] bson) {
-		List<DBObject> objects = fromBSON(bson);
+		List<DBObject> objects = fromBsonList(bson);
 		return objects.get(0);
 	}
 	
