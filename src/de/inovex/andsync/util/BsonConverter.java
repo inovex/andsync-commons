@@ -29,7 +29,7 @@ import org.bson.BasicBSONDecoder;
 import org.bson.BasicBSONEncoder;
 
 /**
- *
+ * TODO: Clean up this method names
  * @author Tim Roes <tim.roes@inovex.de>
  */
 public class BsonConverter {
@@ -109,7 +109,7 @@ public class BsonConverter {
 			 list.add((DBObject)o);			 
 		 }
 		 return list;
-		
+		 
 	}
 	
 	public static DBObject fromBSONFirst(byte[] bson) {
@@ -117,10 +117,13 @@ public class BsonConverter {
 		return objects.get(0);
 	}
 	
-	public static byte[] toBSON(DBObject object) {
+	public static byte[] toByteArray(DBObject object) {
+		return encoderPool.get().encode(object);
+	}
+	
+	public static byte[] toByteArrayList(DBObject object) {	
+		// Wrap up DBObject in BasicDBList as single element
 		BasicDBList list = dblistPool.get();
-		//BasicDBList list = new BasicDBList();
-		
 		list.add(object);
 		byte[] bson = toBSON(list);
 		dblistPool.release(list);
@@ -134,7 +137,6 @@ public class BsonConverter {
 	public static byte[] toBSON(Collection<DBObject> objects) {
 		
 		BasicDBList list = dblistPool.get();
-		//BasicDBList list = new BasicDBList();
 		for(BSONObject obj : objects) {
 			list.add(obj);
 		}
