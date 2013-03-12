@@ -15,10 +15,12 @@ public class Constants {
 	
 	public static final String UTF8 = "UTF-8";
 	
+	// Pathes for the different REST interfaces
 	public static final String REST_OBJECT_PATH = "objects";
-	public static final String REST_FIELDS_KEY = "fields";
-	public static final String REST_MTIME_PATH = "mtime";
 	public static final String REST_META_PATH = "meta";
+	public static final String REST_CONTROL_PATH = "control";
+	
+	public static final String REST_MTIME_PATH = "mtime";
 	
 	public static final String REST_META_DELETION_PATH = "dtime";
 	public static final String REST_META_SIZE_PATH = "size";
@@ -26,7 +28,6 @@ public class Constants {
 	public static final String MONGO_ID = "_id";
 	public static final String MONGO_LAST_MODIFIED = "_mtime";
 	public static final String MONGO_META_CLASS = "class";
-	public static final String MONGO_META_DELETION = "dtime";
 	
 	/**
 	 * We won't use the HTTP standard Last-Modified, since that expects the date format to be
